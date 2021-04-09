@@ -1,5 +1,5 @@
 <template>
-  <h2>{{ date | localizeTime }}</h2>
+  <div class="time">{{ date | localizeTime }}</div>
 </template>
 
 <script>
@@ -33,3 +33,14 @@ export default {
   },
 }
 </script>
+
+<style lang="scss">
+.time {
+  font-family: 'Roboto Mono', sans-serif;
+  font-size: 4rem;
+  line-height: 1;
+  @media screen and (max-width: 40rem) {
+    font-size: 2rem;
+  }
+}
+</style>
