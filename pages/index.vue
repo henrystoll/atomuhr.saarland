@@ -40,10 +40,14 @@ export default Vue.extend({
     clearInterval(this.interval)
   },
   async created() {
-    const { date, offset, uncertainty } = await getServerDate()
-    console.log(`The server's date is ${date} +/- ${uncertainty} milliseconds.`)
-    this.offset = offset
-    this.startInterval()
+    if (process.browser) {
+      const { date, offset, uncertainty } = await getServerDate()
+      console.log(
+        `The server's date is ${date} +/- ${uncertainty} milliseconds.`
+      )
+      this.offset = offset
+      this.startInterval()
+    }
   },
   methods: {
     startInterval() {
