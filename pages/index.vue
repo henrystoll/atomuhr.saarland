@@ -2,7 +2,7 @@
   <div class="container">
     <div>
       <h1 class="title">atomuhr.saarland</h1>
-      <Time />
+      <Time class="subtitle" />
       <div class="links">
         <a
           href="https://techmob.show/"
@@ -18,7 +18,7 @@
           rel="noopener noreferrer"
           class="button--grey"
         >
-          GitHub
+          🌟 us on Git 💜
         </a>
       </div>
     </div>
@@ -46,17 +46,18 @@ export default Vue.extend({})
     'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   display: block;
   font-weight: 300;
-  font-size: 100px;
+  font-size: 4rem;
   color: #35495e;
   letter-spacing: 1px;
+  margin-bottom: 2rem;
 }
 
 .subtitle {
   font-weight: 300;
-  font-size: 42px;
+  font-size: 6rem;
   color: #526488;
   word-spacing: 5px;
-  padding-bottom: 15px;
+  margin-bottom: 2rem;
 }
 
 .links {
