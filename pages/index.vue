@@ -1,19 +1,19 @@
 <template>
   <div class="container">
     <div>
-      <Logo />
       <h1 class="title">atomuhr.saarland</h1>
+      <Time />
       <div class="links">
         <a
-          href="https://nuxtjs.org/"
+          href="https://techmob.show/"
           target="_blank"
           rel="noopener noreferrer"
           class="button--green"
         >
-          Documentation
+          The idiots who created this
         </a>
         <a
-          href="https://github.com/nuxt/nuxt.js"
+          href="https://github.com/henrystoll/atomuhr.saarland"
           target="_blank"
           rel="noopener noreferrer"
           class="button--grey"
