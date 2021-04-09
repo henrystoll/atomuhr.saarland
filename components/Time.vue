@@ -4,11 +4,12 @@
 
 <script>
 import { format } from 'date-fns'
+import { de } from 'date-fns/locale'
 export default {
   filters: {
     localizeTime(date) {
       if (!date) return ''
-      return format(date, 'ppp')
+      return format(date, 'ppp', { locale: de })
     },
   },
   data() {
@@ -32,15 +33,3 @@ export default {
   },
 }
 </script>
-<style>
-.NuxtLogo {
-  animation: 1s appear;
-  margin: auto;
-}
-
-@keyframes appear {
-  0% {
-    opacity: 0;
-  }
-}
-</style>

@@ -10,7 +10,7 @@
           rel="noopener noreferrer"
           class="button--green"
         >
-          The idiots who created this
+          The 👨‍💻 who created this
         </a>
         <a
           href="https://github.com/henrystoll/atomuhr.saarland"
