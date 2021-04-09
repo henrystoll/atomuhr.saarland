@@ -13,11 +13,11 @@
 
 <script>
 import Vue from 'vue'
+import { getServerDate } from '@/assets/js/serverDate'
 import { format } from 'date-fns'
 import { de } from 'date-fns/locale'
 
 export default Vue.extend({
-  // components: { Time },
   filters: {
     localizeTime(date) {
       if (!date) return ''
@@ -28,6 +28,7 @@ export default Vue.extend({
     return {
       interval: null,
       date: new Date(),
+      offset: 0,
     }
   },
   head() {
@@ -38,13 +39,16 @@ export default Vue.extend({
   beforeDestroy() {
     clearInterval(this.interval)
   },
-  created() {
+  async created() {
+    const { date, offset, uncertainty } = await getServerDate()
+    console.log(`The server's date is ${date} +/- ${uncertainty} milliseconds.`)
+    this.offset = offset
     this.startInterval()
   },
   methods: {
     startInterval() {
       this.interval = setInterval(() => {
-        this.date = new Date()
+        this.date = new Date(Date.now() + this.offset)
       }, 500)
     },
   },
