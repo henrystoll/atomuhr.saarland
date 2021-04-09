@@ -18,7 +18,7 @@
           rel="noopener noreferrer"
           class="button--grey"
         >
-          GitHub
+          🌟 us on Git 💜
         </a>
       </div>
     </div>
