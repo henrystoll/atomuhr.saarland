@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Time />
+    <div class="time">{{ date | localizeTime }}</div>
     <h1>atomuhr.saarland</h1>
     <div class="links">
       <a class="button" href="https://techmob.show">See who created this</a>
@@ -11,12 +11,43 @@
   </div>
 </template>
 
-<script lang="ts">
+<script>
 import Vue from 'vue'
-import Time from '~/components/Time.vue'
+import { format } from 'date-fns'
+import { de } from 'date-fns/locale'
 
 export default Vue.extend({
-  components: { Time },
+  // components: { Time },
+  filters: {
+    localizeTime(date) {
+      if (!date) return ''
+      return format(date, 'ppp', { locale: de })
+    },
+  },
+  data() {
+    return {
+      interval: null,
+      date: new Date(),
+    }
+  },
+  head() {
+    return {
+      title: format(this.date, 'pp', { locale: de }),
+    }
+  },
+  beforeDestroy() {
+    clearInterval(this.interval)
+  },
+  created() {
+    this.startInterval()
+  },
+  methods: {
+    startInterval() {
+      this.interval = setInterval(() => {
+        this.date = new Date()
+      }, 500)
+    },
+  },
 })
 </script>
 
@@ -66,6 +97,15 @@ h1 {
   &:hover {
     background: var(--color-primary-light);
     color: var(--color-dark);
+  }
+}
+
+.time {
+  font-family: 'Roboto Mono', sans-serif;
+  font-size: 4rem;
+  line-height: 1;
+  @media screen and (max-width: 40rem) {
+    font-size: 2rem;
   }
 }
 </style>
