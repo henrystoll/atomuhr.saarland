@@ -1,66 +1,119 @@
 <template>
-  <div class="container">
-    <div>
-      <h1 class="title">atomuhr.saarland</h1>
-      <Time class="subtitle" />
-      <div class="links">
-        <a
-          href="https://techmob.show/"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="button--green"
-        >
-          The idiots who created this
-        </a>
-        <a
-          href="https://github.com/henrystoll/atomuhr.saarland"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="button--grey"
-        >
-          🌟 us on Git 💜
-        </a>
-      </div>
+  <div>
+    <div class="time">{{ date | localizeTime }}</div>
+    <h1>atomuhr.saarland</h1>
+    <div class="links">
+      <a class="button" href="https://techmob.show">See who created this</a>
+      <a class="button" href="https://github.com/henrystoll/atomuhr.saarland">
+        Star us on GitHub
+      </a>
     </div>
   </div>
 </template>
 
-<script lang="ts">
+<script>
 import Vue from 'vue'
+import { getServerDate } from '@/assets/js/serverDate'
+import { format } from 'date-fns'
+import { de } from 'date-fns/locale'
 
-export default Vue.extend({})
+export default Vue.extend({
+  filters: {
+    localizeTime(date) {
+      if (!date) return ''
+      return format(date, 'ppp', { locale: de })
+    },
+  },
+  data() {
+    return {
+      interval: null,
+      date: new Date(),
+      offset: 0,
+    }
+  },
+  head() {
+    return {
+      title: format(this.date, 'pp', { locale: de }),
+    }
+  },
+  beforeDestroy() {
+    clearInterval(this.interval)
+  },
+  async created() {
+    this.startInterval()
+    if (process.browser) {
+      const { date, offset, uncertainty } = await getServerDate()
+      console.log(
+        `The server's date is ${date} +/- ${uncertainty} milliseconds.`
+      )
+      this.offset = offset
+    }
+  },
+  methods: {
+    startInterval() {
+      this.interval = setInterval(() => {
+        this.date = new Date(Date.now() + this.offset)
+      }, 200)
+    },
+  },
+})
 </script>
 
-<style>
-.container {
-  margin: 0 auto;
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-}
-
-.title {
-  font-family: 'Quicksand', 'Source Sans Pro', -apple-system, BlinkMacSystemFont,
-    'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  display: block;
-  font-weight: 300;
-  font-size: 4rem;
-  color: #35495e;
-  letter-spacing: 1px;
-  margin-bottom: 2rem;
-}
-
-.subtitle {
-  font-weight: 300;
-  font-size: 6rem;
-  color: #526488;
-  word-spacing: 5px;
-  margin-bottom: 2rem;
+<style lang="scss">
+h1 {
+  opacity: 0.9;
+  font-weight: normal;
+  font-size: 1.2rem;
+  margin: 0;
+  letter-spacing: 6px;
+  @media screen and (max-width: 15rem) {
+    font-size: 1rem;
+  }
 }
 
 .links {
-  padding-top: 15px;
+  margin: 4rem 0 0 0;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  align-content: stretch;
+  align-items: flex-start;
+  @media screen and (max-width: 40rem) {
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    align-content: stretch;
+    align-items: stretch;
+  }
+}
+
+.button {
+  display: inline-block;
+  padding: 1rem 1.5rem;
+  border-radius: var(--border-radius);
+  transition: var(--transition);
+  background: var(--color-primary);
+  color: var(--color-light);
+  text-decoration: none;
+  font-weight: bold;
+  letter-spacing: 1px;
+  border: 2px solid var(--color-primary);
+  @media screen and (max-width: 40rem) {
+    margin: 0 0 2rem 0;
+  }
+  &:hover {
+    background: var(--color-primary-light);
+    color: var(--color-dark);
+  }
+}
+
+.time {
+  font-family: 'Roboto Mono', sans-serif;
+  font-size: 4rem;
+  line-height: 1;
+  @media screen and (max-width: 40rem) {
+    font-size: 2rem;
+  }
 }
 </style>

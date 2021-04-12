@@ -1,17 +1,22 @@
 export default {
+  // target: 'static', // default is 'server'
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
     title: 'atomuhr.saarland',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: '' },
+      {
+        hid: 'description',
+        name: 'description',
+        content: 'Die beste Atomuhr dies auf Markt gibt.',
+      },
     ],
-    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
+    link: [{ rel: 'icon', type: 'image/x-icon', href: '/icon.svg' }],
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
-  css: [],
+  css: ['@/assets/style/fontfaces.css'],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [],
@@ -30,15 +35,15 @@ export default {
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
     // https://go.nuxtjs.dev/pwa
-    '@nuxtjs/pwa',
+    // '@nuxtjs/pwa',
   ],
 
   // PWA module configuration: https://go.nuxtjs.dev/pwa
-  pwa: {
-    manifest: {
-      lang: 'en',
-    },
-  },
+  // pwa: {
+  //   manifest: {
+  //     lang: 'en',
+  //   },
+  // },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {},
