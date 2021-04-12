@@ -53,7 +53,7 @@ export default Vue.extend({
     startInterval() {
       this.interval = setInterval(() => {
         this.date = new Date(Date.now() + this.offset)
-      }, 500)
+      }, 200)
     },
   },
 })
